@@ -27,6 +27,30 @@ import joblib,os
 
 # Data dependencies
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+#Installing natural language toolkit (nltk)
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk import TreebankWordTokenizer, SnowballStemmer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from nltk.stem import PorterStemmer
+from nlppreprocess import NLP
+nlp = NLP()
+from nltk import pos_tag
+
+
+nltk.download('wordnet')
+nltk.download('stopwords')
+#other imports
+import seaborn as sns
+import re
+import string
+import urllib
+
 
 # Vectorizer
 news_vectorizer = open("resources/tfidfvect.pkl","rb")
@@ -35,14 +59,29 @@ tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl f
 # Load your raw data
 raw = pd.read_csv("resources/train.csv")
 
+
+# defining a data Processing and cleaning  function
+
+
+
+
 # The main function where we will build the actual app
 def main():
 	"""Tweet Classifier App with Streamlit """
+    
 
 	# Creates a main title and subheader on your page -
 	# these are static across all pages
 	st.title("Tweet Classifer")
+    st.title('Tweets  Unclassified  :)')
+
+    from PIL import Image
+    image = Image.open('resources/imgs/global_warming_img.jpg')
+
+    st.image(image, caption='Is it real or not?', use_column_width=True)
 	st.subheader("Climate change tweet classification")
+    
+    
 
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
