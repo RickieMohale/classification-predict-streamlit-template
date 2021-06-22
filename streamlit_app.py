@@ -144,11 +144,11 @@ def main():
 		col4.image(vesh_Pic,caption="Veshen Naidoo", width=150)
 		col4.write('UQ Designer')
         
-		Phiw_Pic =Image.open('resources/imgs/blue_pic.png') 
+		Phiw_Pic =Image.open('resources/imgs/phiwe_pic.png') 
 		col5.image(Phiw_Pic,caption="Phiweka Mthini", width=150)
 		col5.write('Digital marketer ')
 
-		nor_Pic =Image.open('resources/imgs/blue_pic.png') 
+		nor_Pic =Image.open('resources/imgs/nour_pic.png') 
 		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
 		col6.write('Data scientist')
 
