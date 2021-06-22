@@ -108,48 +108,66 @@ def main():
 	#st.title("Tweet Classifer")
 
 
-   
-
- 
-
-
-	
-	# you can create multiple pages this way
-	#image= Image.open('resources/imgs/global_warming_img.jpg')
-	#st.image(image, caption='https://www.azocleantech.com/article.aspx?ArticleID=898', use_column_width=True)
-
-	pages = ["Company Information & Background","Prediction Page","Data Visualization","Project Team"]
+	pages = ["Prediction Page","Data Visualization","Project Team", "Company Information, Background & Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
 	# Building out the "Background" page
-	if selection == "Company Information & Background":
-		st.info('Company Information and Background')
-
-		st.header('How we started?')
-		st.write('African Intelligence started as a group of 6 students who met each other on a university project. The students bonded together around a love for solving problems with the help of AI. ')	
-		st.write('These students all graduated with flying colours and entered succesful carreers, but they never forgot the joys of solving real world problems.')
-		st.write('A few years later they decided to meet up again and started working part time on this project which they call: AI Africa.')
+	if selection == "Company Information, Background & Team":
+		st.info('Company Information and Background says who?')
 
 		st.header('Our Mission')		
 		st.write('To develop creative AI solutions for Africa\'s toughest problems.')
 
 		st.header('Our Vision')
 		st.write('A better and smarter Africa.')
-		st.header('Meet the team')
-		
 
-		st.write('This is who we are !!!')
+		st.header('Our Amazing Team')
+		st.write('A team of 6 passionate AI solutionists.')
+		#First row of pictures
 
-   
-		
+		col1, col2,col3 = st.beta_columns(3)
+		Ric_Pic =Image.open('resources/imgs/Rickie_pic.png') 
+		col1.image(Ric_Pic,caption="Rickie Mogale Mohale", width=150)
+		col1.write('Tech-lead and software developer.')
+        
+		Cot_Pic =Image.open('resources/imgs/courtney_pic.png') 
+		col2.image(Cot_Pic,caption="Courtney Murugan", width=150)
+		col2.write('Machine learning engineer')
+
+		Cot_Pic =Image.open('resources/imgs/jacques_pic.png') 
+		col3.image(Cot_Pic,caption="Jacques Stander", width=150)
+		col3.write('Project manager')
+
+        #Second row of pictures
+		col4, col5,col6 = st.beta_columns(3)
+		vesh_Pic =Image.open('resources/imgs/veshen_pic.png') 
+		col4.image(vesh_Pic,caption="Veshen Naidoo", width=150)
+		col4.write('UQ Designer')
+        
+		Phiw_Pic =Image.open('resources/imgs/blue_pic.png') 
+		col5.image(Phiw_Pic,caption="Phiweka Mthini", width=150)
+		col5.write('Digital marketer ')
+
+		nor_Pic =Image.open('resources/imgs/blue_pic.png') 
+		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
+		col6.write('Data scientist')
+
+		#Third row of picture 
+		col7, col8,col9 = st.beta_columns(3)
+
+		zin_Pic =Image.open('resources/imgs/zintle_pic.png') 
+		col8.image(zin_Pic,caption='Zintle Faltein-Maqubela', width=150)
+		col8.write("Supervisor")
+
+		st.header('How we started?')
+		st.write('African Intelligence started as a group of 6 students who met each other on a university project. The students bonded together around a love for solving problems with the help of AI. ')	
+		st.write('These students all graduated with flying colours and entered succesful carreers, but they never forgot the joys of solving real world problems.')
+		st.write('A few years later they decided to meet up again and started working part time on this project which they call: AI Africa.')
 	
 
-	# Building out the predication page
+		# Building out the predication page
 	if selection == "Prediction Page":
-	
 
-		
-		
 		st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
 		st.info('This page uses machine learning models  to help you predict an individual\'s position  on global warming base on their tweet using')
 		st.subheader('To make predictions, please follow the three steps below')
