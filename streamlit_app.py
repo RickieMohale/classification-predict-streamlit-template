@@ -108,7 +108,7 @@ def main():
 	#st.title("Tweet Classifer")
 
 
-	pages = ["Prediction Page","Data Visualization","Project Team", "Company Information, Background & Team"]
+	pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
 	# Building out the "Background" page
@@ -354,42 +354,7 @@ def main():
 
 
 
-    # Building the "Project team" page
-	if selection == "Project Team" :
-		#First row of pictures
 
-		col1, col2,col3 = st.beta_columns(3)
-		Ric_Pic =Image.open('resources/imgs/Rickie_pic.png') 
-		col1.image(Ric_Pic,caption="Rickie Mogale Mohale", width=150)
-		
-        
-		Cot_Pic =Image.open('resources/imgs/courtney_pic.png') 
-		col2.image(Cot_Pic,caption="Courtney Murugan", width=150)
-		
-
-		Cot_Pic =Image.open('resources/imgs/jacques_pic.png') 
-		col3.image(Cot_Pic,caption="Jacques Stander", width=150)
-		
-
-        #Second row of pictures
-		col4, col5,col6 = st.beta_columns(3)
-		vesh_Pic =Image.open('resources/imgs/veshen_pic.png') 
-		col4.image(vesh_Pic,caption="Veshen Naidoo", width=150)
-		
-        
-		Phiw_Pic =Image.open('resources/imgs/blue_pic.png') 
-		col5.image(Phiw_Pic,caption="Phiweka Mthini", width=150)
-
-		nor_Pic =Image.open('resources/imgs/blue_pic.png') 
-		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
-
-		#Third row of picture 
-		col7, col8,col9 = st.beta_columns(3)
-
-		zin_Pic =Image.open('resources/imgs/zintle_pic.png') 
-		col8.image(zin_Pic,caption='Zintle Faltein-Maqubela', width=150)
-		col8.header("Role : Team Supervisor")
-				
 
 			
 
