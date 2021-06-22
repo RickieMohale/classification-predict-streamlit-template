@@ -108,23 +108,37 @@ def main():
 	#st.title("Tweet Classifer")
 
 
-    #image= Image.open('resources/imgs/global_warming_img.jpg')
+   
 
  
 
 
 	
 	# you can create multiple pages this way
+	#image= Image.open('resources/imgs/global_warming_img.jpg')
+	#st.image(image, caption='https://www.azocleantech.com/article.aspx?ArticleID=898', use_column_width=True)
+
 	pages = ["Company Information & Background","Prediction Page","Data Visualization","Project Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
-	# Builing out the "Background" page
+	# Building out the "Background" page
 	if selection == "Company Information & Background":
-		st.info('This works')	
-		st.write('Explorers !!!')	
-		image= Image.open('resources/imgs/global_warming_img.jpg')
-		st.image(image, caption='https://www.azocleantech.com/article.aspx?ArticleID=898', use_column_width=True)
+		st.info('Company Information and Background')
+
+		st.header('How we started?')
+		st.write('African Intelligence started as a group of 6 students who met each other on a university project. The students bonded together around a love for solving problems with the help of AI. ')	
+		st.write('These students all graduated with flying colours and entered succesful carreers, but they never forgot the joys of solving real world problems.')
+		st.write('A few years later they decided to meet up again and started working part time on this project which they call: AI Africa.')
+
+		st.header('Our Mission')		
+		st.write('To develop creative AI solutions for Africa\'s toughest problems.')
+
+		st.header('Our Vision')
+		st.write('A better and smarter Africa.')
+		st.header('Meet the team')
 		
+
+		st.write('This is who we are !!!')
 
    
 		
