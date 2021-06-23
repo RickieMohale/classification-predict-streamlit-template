@@ -156,7 +156,7 @@ def main():
 	# Building out the "Background" page
 
 	if selection == "Company Information, Background & Team":
-		st.title("1Company Information, Background and Team")
+		st.title("Company Information, Background and Team")
 		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
 		st.header('Our Mission')		
