@@ -105,7 +105,6 @@ def main():
 
 	# Creates a main title and subheader on your page -
 	# these are static across all pages
-	st.title("Tweet Classifer")
 
 
 	pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team"]
@@ -113,7 +112,8 @@ def main():
 
 	# Building out the "Background" page
 	if selection == "Company Information, Background & Team":
-		st.info('Company Information and Background.')
+		st.title("Company Information, Background and Team")
+		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
 		st.header('Our Mission')		
 		st.write('To develop creative AI solutions for Africa\'s toughest problems which could not be solved in any other way.')
