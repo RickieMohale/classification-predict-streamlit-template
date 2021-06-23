@@ -84,7 +84,6 @@ def tweet_processor(input_t):
     
 	pos = pos_tag(tokens_wt_stopwords)
 
-
     # Lemmatization
 	lemmatizer = WordNetLemmatizer()
 	tweet = ' '.join([lemmatizer.lemmatize(word, po[0].lower()) if po[0].lower() in ['n', 'r', 'v', 'a'] else word for word, po in pos])
@@ -112,7 +111,6 @@ def main():
 
 	# Creates a main title and subheader on your page -
 	# these are static across all pages
-	#st.title("Tweet Classifer")
 
 
 	pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team"]
@@ -120,13 +118,14 @@ def main():
 
 	# Building out the "Background" page
 	if selection == "Company Information, Background & Team":
-		st.info('Company Information and Background says who?')
+		st.title("1Company Information, Background and Team")
+		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
 		st.header('Our Mission')		
-		st.write('To develop creative AI solutions for Africa\'s toughest problems.')
+		st.write('To use AI to combat climate change within Africa, securing the futures of the generations of now and tomorrow.')
 
 		st.header('Our Vision')
-		st.write('A better and smarter Africa.')
+		st.write('A better and more intelligent Africa which is able to adapt to the fourth industrial revolution by using Data Science, for social good.')
 
 		st.header('Our Amazing Team')
 		st.write('A team of 6 passionate AI solutionists.')
@@ -157,14 +156,10 @@ def main():
 
 		nor_Pic =Image.open('resources/imgs/nour_pic.png') 
 		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
-		col6.write('Data scientist')
+		col6.write('Database architect')
 
 		#Third row of picture 
 		col7, col8,col9 = st.beta_columns(3)
-
-		zin_Pic =Image.open('resources/imgs/zintle_pic.png') 
-		col8.image(zin_Pic,caption='Zintle Faltein-Maqubela', width=150)
-		col8.write("Supervisor")
 
 		st.header('How we started?')
 		st.write('African Intelligence started as a group of 6 students who met each other on a university project. The students bonded together around a love for solving problems with the help of AI. ')	
