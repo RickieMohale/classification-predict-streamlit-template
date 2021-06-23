@@ -44,6 +44,11 @@ import string
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 
+import altair as alt
+from streamlit_folium import folium_static
+import folium
+from branca.colormap import linear, LinearColormap
+
 
 
 import matplotlib.pyplot as plt
@@ -116,7 +121,7 @@ def main():
 	# these are static across all pages
 
 
-pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team", "Climate change"]
+pages = ["Prediction Page","Data Visualization","Climate change", "Company Information, Background & Team"]
 selection = st.sidebar.selectbox("Choose Page :", pages)
 	
 
@@ -142,6 +147,8 @@ if selection == "Climate change":
 	Use the map for quick comparisons. Then use the menu at the bottom to drill into single city data.
 	Results are aggregations of [this raw daily weather data](https://docs.opendata.aws/noaa-ghcn-pds/readme.html). This page doesn't show extreme weather events. Changes in extreme weather are more important, but that topic deserves a more detailed review than this page.
 	""")
+
+	
 
 
 
