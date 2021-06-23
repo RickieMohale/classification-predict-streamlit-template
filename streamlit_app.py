@@ -164,7 +164,7 @@ if selection == "Climate change":
 
 	# Building out the "Background" page
 
-	if selection == "Company Information, Background & Team":
+if selection == "Company Information, Background & Team":
 		st.title("Company Information, Background and Team")
 		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
@@ -216,7 +216,7 @@ if selection == "Climate change":
 
 		# Building out the predication page
 
-	if selection == "Prediction Page":
+if selection == "Prediction Page":
 
 		
 		row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
@@ -287,7 +287,7 @@ if selection == "Climate change":
 			st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
     
 	# Building out the "Data Visualization" page
-	if selection == "Data Visualization" :
+if selection == "Data Visualization" :
 
 		st.info("General Information")
 		# You can read a markdown file from supporting resources folder
