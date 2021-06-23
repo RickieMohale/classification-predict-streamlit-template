@@ -135,9 +135,10 @@ selection = st.sidebar.selectbox("Choose Page :", pages)
 
 	
 
-	#Building the "Climate change" page 
+	#Building the "Climate change" page \
 
 if selection == "Climate change":
+
 
 		st.header("Climate Changes Between 1980-2020")
 
@@ -158,7 +159,6 @@ if selection == "Climate change":
 		Results are aggregations of [this raw daily weather data](https://docs.opendata.aws/noaa-ghcn-pds/readme.html). This page doesn't show extreme weather events. Changes in extreme weather are more important, but that topic deserves a more detailed review than this page.
 		""")
 
-
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
@@ -168,7 +168,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 @st.cache
 def get_annual_stats():
-    raw_data = pd.read_parquet( r'C:\Users\PVT\Documents\GitHub\classification-predict-streamlit-template/weather_1980_to_2020.parquet')
+    raw_data = pd.read_parquet( r'weather_1980_to_2020.parquet')
     raw_data['date'] = pd.to_datetime(raw_data.date)
     raw_data['year'] = raw_data.date.dt.year
     annual_stats = raw_data.fillna(0).groupby(['station_id', 'year']).agg(
@@ -181,7 +181,7 @@ def get_annual_stats():
 
 @st.cache
 def read_base_file():
-    station_stats = pd.read_csv(r'C:\Users\PVT\Documents\GitHub\classification-predict-streamlit-template/station_stats.csv')
+    station_stats = pd.read_csv(r'station_stats.csv')
     station_stats['pct_precip_change'] = (100 * station_stats.slope_total_precip_pct.round(3))
     station_stats['slope_max_temp'] = station_stats['slope_max_temp'].round(2)
     station_stats['slope_min_temp'] = station_stats['slope_min_temp'].round(2)
