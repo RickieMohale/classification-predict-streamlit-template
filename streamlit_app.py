@@ -46,10 +46,13 @@ import plotly.graph_objects as go
 import base64
 
 
+
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import RendererAgg
 from matplotlib.figure import Figure
 _lock = RendererAgg.lock
+
+
 #suppress cell_warnings
 import warnings
 warnings.filterwarnings("ignore")
@@ -121,11 +124,38 @@ def main():
 	
 
 
-	pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team"]
-	selection = st.sidebar.selectbox("Choose Page :", pages)
+pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team", "Climate change"]
+selection = st.sidebar.selectbox("Choose Page :", pages)
+	
+
+	#Building the "Climate change" page 
+
+if selection == "Climate change":
+
+	st.header("Climate Changes Between 1980-2020")
+
+	st.info("""One of the most significant, and perhaps most misundertood risks that financial institutions 
+	face today relates to climate change. It is more important than ever that these institutions 
+	lead in understanding and responding to these risks, and seizing the opportunities to build a 
+	stronger, more resilient, and sustainable global economy through the use of artificial intelligence.""")
+	
+	st.write("""
+	Climate change has had highly variable effects in different places.
+	This dashboard lets you see the climate impacts so far. For each city, you can see changes in:
+
+	1. Daily high temperatures 
+	2. Daily low temperatures
+	3. Total precipitation
+
+	Use the map for quick comparisons. Then use the menu at the bottom to drill into single city data.
+	Results are aggregations of [this raw daily weather data](https://docs.opendata.aws/noaa-ghcn-pds/readme.html). This page doesn't show extreme weather events. Changes in extreme weather are more important, but that topic deserves a more detailed review than this page.
+	""")
+
+
 
 	# Building out the "Background" page
-	if selection == "Company Information, Background & Team":
+
+if selection == "Company Information, Background & Team":
 		st.title("1Company Information, Background and Team")
 		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
@@ -176,7 +206,8 @@ def main():
 	
 
 		# Building out the predication page
-	if selection == "Prediction Page":
+
+if selection == "Prediction Page":
 
 		
 		row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
@@ -247,7 +278,7 @@ def main():
 			st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
     
 	# Building out the "Data Visualization" page
-	if selection == "Data Visualization" :
+if selection == "Data Visualization" :
 
 		st.info("General Information")
 		# You can read a markdown file from supporting resources folder
