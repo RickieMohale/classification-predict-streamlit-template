@@ -137,7 +137,7 @@ selection = st.sidebar.selectbox("Choose Page :", pages)
 
 	#Building the "Climate change" page 
 
-	if selection == "Climate change":
+if selection == "Climate change":
 
 		st.header("Climate Changes Between 1980-2020")
 
