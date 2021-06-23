@@ -55,15 +55,15 @@ tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl f
 train_df = pd.read_csv("resources/train.csv")
 
 # defining a data Processing and cleaning  function
-def tweet_processor(input_tweet):
+def tweet_processor(input_t):
 
 
     # Removing https and trailing white spaces
-	input_tweet = re.sub(r'^RT ','', re.sub(r'https://t.co/\w+', '', input_tweet).strip()) 
+	input_t = re.sub(r'^RT ','', re.sub(r'https://t.co/\w+', '', input_t).strip()) 
 
     # Removing puctuations
-	input_tweet = input_tweet.lower()
-	tweet = ''.join([x for x in input_tweet if x not in string.punctuation])
+	input_tweet = input_t.lower()
+	tweet = ''.join([x for x in input_t if x not in string.punctuation])
 
 	# Tweet tokenizing
 	tokeniser = TreebankWordTokenizer()
@@ -92,7 +92,7 @@ def load_model(path_):
 	return model_
 
 
-# Prediction classification 
+# Prediction classification function
 def predict_class(val,my_dict):
 	for key,value in my_dict.items():
 		if val == value:
@@ -108,7 +108,7 @@ def main():
 	st.title("Tweet Classifer")
 
 
-	pages = ["Prediction Page","Data Visualization","Project Team", "Company Information, Background & Team"]
+	pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
 	# Building out the "Background" page
@@ -144,12 +144,12 @@ def main():
 		col4.image(vesh_Pic,caption="Veshen Naidoo", width=150)
 		col4.write('UQ Designer')
         
-		Phiw_Pic =Image.open('resources/imgs/blue_pic.png') 
+		Phiw_Pic =Image.open('resources/imgs/phiwe_pic.png') 
 		col5.image(Phiw_Pic,caption="Phiweka Mthini", width=150)
 		col5.write('Digital marketer ')
 
-		nor_Pic =Image.open('resources/imgs/blue_pic.png') 
-		col6.image(nor_Pic,caption="Nourhan Alfalous", width=150)
+		nor_Pic =Image.open('resources/imgs/nour_pic.png') 
+		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
 		col6.write('Database architect')
 
 		#Third row of picture 
@@ -182,7 +182,7 @@ def main():
 			
             # Creating a text box for user input
 			input_text = st.text_area("Step 2 ) : Enter Your Single Text Below :") 
-			Models = ["Logistic regression","XGboost","Linear SVC","Random Forest"]
+			Models = ["Logistic Regression","Linear SVC","Naive Bayes multinomial","Ridge classifier"]
 
 			selected_model = st.selectbox("Step 3 ) : Choose prediction model ",Models)
 
@@ -196,41 +196,33 @@ def main():
 
 				# Transforming user input with vectorizer
 				vect_text = tweet_cv.transform([input_text]).toarray()
-				# Load your .pkl file with the model of your choice + make predictions
-				# Try loading in multiple models to give the user a choice
-				predictor = joblib.load(open(os.path.join("resources/Logistic_regression.pkl"),"rb"))
-				prediction = predictor.predict(vect_text)
+				
 
             	#M Model_ Selection
-				if selected_model == "Logistic regression":
+				if selected_model == "Logistic Regression":
 
-					predictor = load_model("resources/Logistic_regression.pkl")
+					predictor = load_model("resources/logreg_count.pkl")
 					prediction = predictor.predict(vect_text)
                	    # st.write(prediction)
-				elif selected_model == "Decision tree":
+				elif selected_model == "Linear SVC":
 
-					predictor = load_model("resources/Logistic_regression.pkl")
+					predictor = load_model("resources/Lsvc_tfidf.pkl")
 					prediction = predictor.predict(vect_text)
                     # st.write(prediction)
-				elif selected_model == "Random Forest Classifier":
-					predictor = load_model("resources/Logistic_regression.pkl")
+				elif selected_model == "Naive Bayes multinomial":
+					predictor = load_model("resources/nbm_count.pkl")
 					prediction = predictor.predict(vect_text)
                     # st.write(prediction)
-				elif selected_model == "Naive Bayes":
-					predictor = load_model("resources/Logistic_regression.pkl")
+				elif selected_model == "Ridge classifier":
+					predictor = load_model("resources/ridge_count.pkl")
 					prediction = predictor.predict(vect_text)
-				elif selected_model =="XGboost" :
-					 predictor = load_model("resources/Logistic_regression.pkl")
-					 prediction = predictor.predict(vect_text)
-				elif selected_model == "Linear SVC" :
-					predictor = load_model("resources/Logistic_regression.pkl")
-					prediction = predictor.predict(vect_text)
+
 				# st.write(prediction)
 			    # When model has successfully run, will print prediction
 			    # You can use a dictionary or similar structure to make this output
 			    # more human interpretable.
 			    # st.write(prediction)
-				final_result = get_keys(prediction,prediction_labels)
+				final_result = predict_class(prediction,prediction_labels)
 				st.success("Tweet Categorized as : {}".format(final_result))
     
 	# Building out the "Data Visualization" page
@@ -350,42 +342,7 @@ def main():
 
 
 
-    # Building the "Project team" page
-	if selection == "Project Team" :
-		#First row of pictures
 
-		col1, col2,col3 = st.beta_columns(3)
-		Ric_Pic =Image.open('resources/imgs/Rickie_pic.png') 
-		col1.image(Ric_Pic,caption="Rickie Mogale Mohale", width=150)
-		
-        
-		Cot_Pic =Image.open('resources/imgs/courtney_pic.png') 
-		col2.image(Cot_Pic,caption="Courtney Murugan", width=150)
-		
-
-		Cot_Pic =Image.open('resources/imgs/jacques_pic.png') 
-		col3.image(Cot_Pic,caption="Jacques Stander", width=150)
-		
-
-        #Second row of pictures
-		col4, col5,col6 = st.beta_columns(3)
-		vesh_Pic =Image.open('resources/imgs/veshen_pic.png') 
-		col4.image(vesh_Pic,caption="Veshen Naidoo", width=150)
-		
-        
-		Phiw_Pic =Image.open('resources/imgs/blue_pic.png') 
-		col5.image(Phiw_Pic,caption="Phiweka Mthini", width=150)
-
-		nor_Pic =Image.open('resources/imgs/blue_pic.png') 
-		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
-
-		#Third row of picture 
-		col7, col8,col9 = st.beta_columns(3)
-
-		zin_Pic =Image.open('resources/imgs/zintle_pic.png') 
-		col8.image(zin_Pic,caption='Zintle Faltein-Maqubela', width=150)
-		col8.header("Role : Team Supervisor")
-				
 
 			
 
