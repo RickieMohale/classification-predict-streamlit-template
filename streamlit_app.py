@@ -43,6 +43,7 @@ import re
 import string
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
+import base64
 
 import altair as alt
 from streamlit_folium import folium_static
@@ -113,40 +114,49 @@ def predict_class(val,my_dict):
 			return key
 # The main function where we will build the actual app
 def main():
+
 	
 	"""Tweet Classifier App with Streamlit """
-    
 
-	# Creates a main title and subheader on your page -
-	# these are static across all pages
+    ### Loading Company logo
+	row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
+	with center_,_lock :
+
+		file_ = open('resources/imgs/Company_logo.gif', "rb")
+		contents = file_.read()
+		data_url = base64.b64encode(contents).decode("utf-8")
+		file_.close()
+		st.markdown(f'<img src="data:image/gif;base64,{data_url}" alt="cat gif">',unsafe_allow_html=True,)	
+
 
 
 pages = ["Prediction Page","Data Visualization","Climate change", "Company Information, Background & Team"]
 selection = st.sidebar.selectbox("Choose Page :", pages)
+
 	
 
 	#Building the "Climate change" page 
 
-if selection == "Climate change":
+	if selection == "Climate change":
 
-	st.header("Climate Changes Between 1980-2020")
+		st.header("Climate Changes Between 1980-2020")
 
-	st.info("""One of the most significant, and perhaps most misundertood risks that financial institutions 
-	face today relates to climate change. It is more important than ever that these institutions 
-	lead in understanding and responding to these risks, and seizing the opportunities to build a 
-	stronger, more resilient, and sustainable global economy through the use of artificial intelligence.""")
+		st.info("""One of the most significant, and perhaps most misundertood risks that financial institutions 
+		face today relates to climate change. It is more important than ever that these institutions 
+		lead in understanding and responding to these risks, and seizing the opportunities to build a 
+		stronger, more resilient, and sustainable global economy through the use of artificial intelligence.""")
 	
-	st.write("""
-	Climate change has had highly variable effects in different places.
-	This dashboard lets you see the climate impacts so far. For each city, you can see changes in:
+		st.write("""
+		Climate change has had highly variable effects in different places.
+		This dashboard lets you see the climate impacts so far. For each city, you can see changes in:
 
-	1. Daily high temperatures 
-	2. Daily low temperatures
-	3. Total precipitation
+		1. Daily high temperatures 
+		2. Daily low temperatures
+		3. Total precipitation
 
-	Use the map for quick comparisons. Then use the menu at the bottom to drill into single city data.
-	Results are aggregations of [this raw daily weather data](https://docs.opendata.aws/noaa-ghcn-pds/readme.html). This page doesn't show extreme weather events. Changes in extreme weather are more important, but that topic deserves a more detailed review than this page.
-	""")
+		Use the map for quick comparisons. Then use the menu at the bottom to drill into single city data.
+		Results are aggregations of [this raw daily weather data](https://docs.opendata.aws/noaa-ghcn-pds/readme.html). This page doesn't show extreme weather events. Changes in extreme weather are more important, but that topic deserves a more detailed review than this page.
+		""")
 
 	
 
@@ -154,8 +164,8 @@ if selection == "Climate change":
 
 	# Building out the "Background" page
 
-if selection == "Company Information, Background & Team":
-		st.title("1Company Information, Background and Team")
+	if selection == "Company Information, Background & Team":
+		st.title("Company Information, Background and Team")
 		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
 		st.header('Our Mission')		
@@ -206,10 +216,16 @@ if selection == "Company Information, Background & Team":
 
 		# Building out the predication page
 
-if selection == "Prediction Page":
+	if selection == "Prediction Page":
 
-		st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
-		st.info('This page uses machine learning models  to help you predict an individual\'s position  on global warming base on their tweet using')
+		
+		row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
+		with center_,_lock :
+			st.subheader('Sentiment Prediction Page')
+		
+
+		
+		st.info('This page uses machine learning models  to help you predict an individual\'s position  on global warming base on their tweet')
 		st.subheader('To make predictions, please follow the three steps below')
 		
 		#selecting input text
@@ -245,12 +261,12 @@ if selection == "Prediction Page":
             	#M Model_ Selection
 				if selected_model == "Logistic Regression":
 
-					predictor = load_model("resources/Logistic_regression.pkl")
+					predictor = load_model("resources/logreg_count2.0.pickle")
 					prediction = predictor.predict(vect_text)
                	    # st.write(prediction)
 				elif selected_model == "Linear SVC":
 
-					predictor = load_model("resources/Lsvc_tfidf.pkl")
+					predictor = load_model("resources/svm_model.pkl")
 					prediction = predictor.predict(vect_text)
                     # st.write(prediction)
 				elif selected_model == "Naive Bayes multinomial":
@@ -258,7 +274,7 @@ if selection == "Prediction Page":
 					prediction = predictor.predict(vect_text)
                     # st.write(prediction)
 				elif selected_model == "Ridge classifier":
-					predictor = load_model("resources/ridge_count.pkl")
+					predictor = load_model("resources/ridge_count2.0.pickle")
 					prediction = predictor.predict(vect_text)
 
 				# st.write(prediction)
@@ -268,9 +284,10 @@ if selection == "Prediction Page":
 			    # st.write(prediction)
 				final_result = predict_class(prediction,prediction_labels)
 				st.success("Tweet Categorized as : {}".format(final_result))
+			st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
     
 	# Building out the "Data Visualization" page
-if selection == "Data Visualization" :
+	if selection == "Data Visualization" :
 
 		st.info("General Information")
 		# You can read a markdown file from supporting resources folder
