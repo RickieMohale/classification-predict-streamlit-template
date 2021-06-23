@@ -77,7 +77,6 @@ def tweet_processor(input_t):
     
 	pos = pos_tag(tokens_wt_stopwords)
 
-
     # Lemmatization
 	lemmatizer = WordNetLemmatizer()
 	tweet = ' '.join([lemmatizer.lemmatize(word, po[0].lower()) if po[0].lower() in ['n', 'r', 'v', 'a'] else word for word, po in pos])
@@ -116,10 +115,10 @@ def main():
 		st.info('Discover the mission and vision that keeps us going as well as the amazing team that pulled this project together and how we started.')
 
 		st.header('Our Mission')		
-		st.write('To develop creative AI solutions for Africa\'s toughest problems which could not be solved in any other way.')
+		st.write('To use AI to combat climate change within Africa, securing the futures of the generations of now and tomorrow.')
 
 		st.header('Our Vision')
-		st.write('A better and more intelligent Africa which is able to adapt to the fourth industrial revolution.')
+		st.write('A better and more intelligent Africa which is able to adapt to the fourth industrial revolution by using Data Science, for social good.')
 
 		st.header('Our Amazing Team')
 		st.write('A team of 6 passionate AI solutionists.')
