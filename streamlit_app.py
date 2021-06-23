@@ -105,7 +105,7 @@ def main():
 
 	# Creates a main title and subheader on your page -
 	# these are static across all pages
-	#st.title("Tweet Classifer")
+	st.title("Tweet Classifer")
 
 
 	pages = ["Prediction Page","Data Visualization","Project Team", "Company Information, Background & Team"]
@@ -113,13 +113,13 @@ def main():
 
 	# Building out the "Background" page
 	if selection == "Company Information, Background & Team":
-		st.info('Company Information and Background says who?')
+		st.info('Company Information and Background.')
 
 		st.header('Our Mission')		
-		st.write('To develop creative AI solutions for Africa\'s toughest problems.')
+		st.write('To develop creative AI solutions for Africa\'s toughest problems which could not be solved in any other way.')
 
 		st.header('Our Vision')
-		st.write('A better and smarter Africa.')
+		st.write('A better and more intelligent Africa which is able to adapt to the fourth industrial revolution.')
 
 		st.header('Our Amazing Team')
 		st.write('A team of 6 passionate AI solutionists.')
@@ -149,15 +149,11 @@ def main():
 		col5.write('Digital marketer ')
 
 		nor_Pic =Image.open('resources/imgs/blue_pic.png') 
-		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
-		col6.write('Data scientist')
+		col6.image(nor_Pic,caption="Nourhan Alfalous", width=150)
+		col6.write('Database architect')
 
 		#Third row of picture 
 		col7, col8,col9 = st.beta_columns(3)
-
-		zin_Pic =Image.open('resources/imgs/zintle_pic.png') 
-		col8.image(zin_Pic,caption='Zintle Faltein-Maqubela', width=150)
-		col8.write("Supervisor")
 
 		st.header('How we started?')
 		st.write('African Intelligence started as a group of 6 students who met each other on a university project. The students bonded together around a love for solving problems with the help of AI. ')	
