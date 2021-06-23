@@ -43,6 +43,7 @@ import re
 import string
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
+import base64
 
 
 import matplotlib.pyplot as plt
@@ -107,10 +108,17 @@ def predict_class(val,my_dict):
 def main():
 	
 	"""Tweet Classifier App with Streamlit """
-    
 
-	# Creates a main title and subheader on your page -
-	# these are static across all pages
+    ### Loading Company logo
+	row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
+	with center_,_lock :
+
+		file_ = open('resources/imgs/Company_logo.gif', "rb")
+		contents = file_.read()
+		data_url = base64.b64encode(contents).decode("utf-8")
+		file_.close()
+		st.markdown(f'<img src="data:image/gif;base64,{data_url}" alt="cat gif">',unsafe_allow_html=True,)
+	
 
 
 	pages = ["Prediction Page","Data Visualization", "Company Information, Background & Team"]
@@ -170,8 +178,14 @@ def main():
 		# Building out the predication page
 	if selection == "Prediction Page":
 
-		st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
-		st.info('This page uses machine learning models  to help you predict an individual\'s position  on global warming base on their tweet using')
+		
+		row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
+		with center_,_lock :
+			st.subheader('Sentiment Prediction Page')
+		
+
+		
+		st.info('This page uses machine learning models  to help you predict an individual\'s position  on global warming base on their tweet')
 		st.subheader('To make predictions, please follow the three steps below')
 		
 		#selecting input text
@@ -207,12 +221,12 @@ def main():
             	#M Model_ Selection
 				if selected_model == "Logistic Regression":
 
-					predictor = load_model("resources/Logistic_regression.pkl")
+					predictor = load_model("resources/logreg_count2.0.pickle")
 					prediction = predictor.predict(vect_text)
                	    # st.write(prediction)
 				elif selected_model == "Linear SVC":
 
-					predictor = load_model("resources/Lsvc_tfidf.pkl")
+					predictor = load_model("resources/svm_model.pkl")
 					prediction = predictor.predict(vect_text)
                     # st.write(prediction)
 				elif selected_model == "Naive Bayes multinomial":
@@ -220,7 +234,7 @@ def main():
 					prediction = predictor.predict(vect_text)
                     # st.write(prediction)
 				elif selected_model == "Ridge classifier":
-					predictor = load_model("resources/ridge_count.pkl")
+					predictor = load_model("resources/ridge_count2.0.pickle")
 					prediction = predictor.predict(vect_text)
 
 				# st.write(prediction)
@@ -230,6 +244,7 @@ def main():
 			    # st.write(prediction)
 				final_result = predict_class(prediction,prediction_labels)
 				st.success("Tweet Categorized as : {}".format(final_result))
+			st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
     
 	# Building out the "Data Visualization" page
 	if selection == "Data Visualization" :
