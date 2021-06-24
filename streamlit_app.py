@@ -146,15 +146,15 @@ def main():
 
 
 
-	pages = ["Prediction Page","Data Visualization","Climate change", "Company Information, Background & Team"]
+	pages = ["Prediction Page","Sentiment Visualization","Climate change", "Company Information, Background & Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
 
 	
 
-	#Building the "Climate change" page \
+	#Building the "Climate Change" page \
 
-	if selection == "Climate change":
+	if selection == "Climate Change":
 	
 
 
@@ -383,14 +383,7 @@ def main():
 	# Building out the predication page
 
 
-if selection == "Prediction Page":
-
-
-		st.header("")
-		row1_space1, center_, row1_space2 = st.beta_columns((.3, 1, .2, ))
-		with center_,_lock :
-			st.header('Sentiment Prediction Page')
-
+	if selection == "Prediction Page":
 		
 		row1_space1, center_, row1_space2 = st.beta_columns((.3, 1, .2, ))
 		st.title('Climate Change Sentiment Tracker')
@@ -531,9 +524,9 @@ if selection == "Prediction Page":
     
 	# Building out the "Data Visualization" page
 
-if selection == "Data Visualization" :
-		st.title("Data Visualization")
-		st.info("This page shows various visuals that displays the general sentiment of South-Africa towards climate change.")
+	if selection == "Sentiment Visualization" :
+		st.title("Sentiment Visualization")
+		st.info("This page shows various visuals which display the general sentiment of South-Africa towards climate change.")
 
 		# You can read a markdown file from supporting resources folder
 		#.write(train_df [['sentiment', 'message']]) # will write the df to the page
