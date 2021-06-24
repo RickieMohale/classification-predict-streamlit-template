@@ -362,10 +362,6 @@ def main():
 		# User selecting prediction model
 		#Models = ["Logistic regression","Decision tree","Random Forest Classifier","Naive Bayes","XGboost","Linear SVC"]
 		#selected_model =st.selectbox("Step 3 ) : Choose prediction model ",Models )
-
-		
-
-		
 		
 		if text_selection == 'Single tweet input':
 			st.warning('To make  accurate prediction\'s your tweet should  have at least 5 words')
@@ -373,17 +369,11 @@ def main():
             ### SINGLE TWEET CLASSIFICATION ###
 			
             # Creating a text box for user input
-			
-			
-
-			
 
 			prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
 			if st.button("Classify"):
 				## showing the user original text
 				#st.text("Input tweet is :\n{}".format(user_input))
-
-			
 
 				# Transforming user input with vectorizer
 				vect_text = tweet_cv.transform([user_input]).toarray()
@@ -571,9 +561,8 @@ def main():
 			plt.xlabel('User')
 			plt.ylabel('Total Number Of Mentions')
 			st.pyplot(fig7)
-
+		
 		#Displaying the top hashtags on all four sentiments.
-	
 		
 		## plottin pie chart 
 		st.write('')
@@ -604,6 +593,7 @@ def main():
 		plt.xlabel('Number of Tags')
 		plt.title('Top 10 Most Popular Tags')
 		st.pyplot(fig8)
+
 		#
 		#corpus = re.sub("climate change", ''," ".join(tweet.strip() for tweet in train_df['clean'][working_df['sentiment'] == 'Positive']))
 		#wordcloud = WordCloud(font_path='../input/droidsansmonottf/droidsansmono.ttf', background_color="white",width = 1920, height = 1080, colormap="viridis").generate(corpus)
