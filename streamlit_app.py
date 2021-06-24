@@ -146,18 +146,12 @@ def main():
 
 
 
-	pages = ["Prediction Page","Sentiment Visualization","Climate change", "Company Information, Background & Team"]
+	pages = ["Prediction Page","Sentiment Visualization","Climate Change", "Company Information, Background & Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
-
-	
-
-	#Building the "Climate Change" page \
+	#Building the "Climate Change" page
 
 	if selection == "Climate Change":
-	
-
-
 		st.header("Climate Changes Between 1980-2020")
 
 		st.info("""One of the most significant, and perhaps most misundertood risks that financial institutions 
@@ -321,14 +315,7 @@ def main():
 			st.write(graph_descriptions[graph_name])
 			st.write(graph)
 
-		# st.header('POSSIBLE TODO: Look at Seasonal Results')
-		# st.write('Allow user to specify they want results just for a specific season or calendar month. Those look different than annual averages')
-
-			
-
-
-
-	# Building out the "Background" page
+	# Building out the "Company Information, Background & Team" page
 
 	if selection == "Company Information, Background & Team":
 		st.title("Company Information, Background and Team")
@@ -381,8 +368,6 @@ def main():
 	
 
 	# Building out the predication page
-
-
 	if selection == "Prediction Page":
 		
 		row1_space1, center_, row1_space2 = st.beta_columns((.3, 1, .2, ))
