@@ -78,41 +78,15 @@ def tweet_processor(user_input):
 	if isinstance(user_input, str):
 		x_val= user_input.lower()
 		x_val= ''.join([x for x in x_val if x not in string.punctuation])
-		#x_val =x_val.split()
-		#x_val = [word for word in x_val if word not in stopwords.words('english')]
-		x_val =[user_input]
+
+		x_val =[x_val]
 
 
 
-	#if isinstance(df_train, pd.DataFrame):
-
-
-
-
-
-    # Removing https and trailing white spaces
-	#input_t = re.sub(r'^RT ','', re.sub(r'https://t.co/\w+', '', input_t).strip()) 
-
-    # Removing puctuations
-	#input_tweet = input_t.lower()
-	#tweet = ''.join([x for x in input_t if x not in string.punctuation])
-
-	# Tweet tokenizing
-	#tokeniser = TreebankWordTokenizer()
-	#tokens = tokeniser.tokenize(data)
+	if isinstance(user_input, pd.DataFrame):
+		x_val = user_input['message'].astype(str)
+		
 	
-
-    # Removing stopwords
-	#tokens_wt_stopwords = [word for word in tokens if word not in stopwords.words('english')]
-   
-
-    
-	#pos = pos_tag(tokens_wt_stopwords)
-
-    # Lemmatization
-	#lemmatizer = WordNetLemmatizer()
-	#tweet = ' '.join([lemmatizer.lemmatize(word, po[0].lower()) if po[0].lower() in ['n', 'r', 'v', 'a'] else word for word, po in pos])
-    # tweet = ' '.join([lemmatizer.lemmatize(word, 'v') for word in tweet])
 
 	return x_val
 
@@ -409,6 +383,7 @@ def main():
 		
 		
 		if text_selection == 'Single tweet input':
+			st.warning('To make  accurate prediction\'s your tweet should  have at least 5 words')
 			user_input = st.text_area("Step 3 ) : Enter Your Single Text Below :") 
             ### SINGLE TWEET CLASSIFICATION ###
 			
@@ -432,12 +407,13 @@ def main():
             	#M Model_ Selection
 				if selected_model == "Logistic Regression":
 
-					predictor = load_model("resources/Logistic_regression.pkl")
-					prediction = predictor.predict(vect_text)
+					predictor = load_model("resources/logreg_count.pkl")
+					X_input =tweet_processor(user_input)
+					prediction = predictor.predict(X_input)
                	    # st.write(prediction)
 				elif selected_model == "Linear SVC":
 
-					predictor = load_model("resources/logreg_count.pkl")
+					predictor = load_model("resources/Lsvc_tfidf.pkl")
 					X_input =tweet_processor(user_input)
 					prediction = predictor.predict(X_input)
                     # st.write(prediction)
@@ -479,34 +455,47 @@ def main():
 
 		if text_selection == 'Dataframe input':
 
-			csv_f =st.file_uploader("Step 3 ) : Upload csv file here", type=None, accept_multiple_files=False, key=None, help=None)
-			if csv_f ==[]:
-				st.write("You did not upload file")
+			csv_file =st.file_uploader("Step 3 ) : Upload csv file here", type=None, accept_multiple_files=False, key=None, help=None)
+			
+				
+		
+			#df = pd.read_csv(csv_file)
+			#if df.empty:
+			#	st.write("You did not upload file")
 
 			prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
 
 			if st.button("Classify"):
+				
+				if csv_file == None:
+					st.warning("You did not upload a file ")
+					raise Exception(" please upload your csv file and then classify")
+
+				#Loading the user csv as a dataframe
+
+				input_df = pd.read_csv(csv_file)
+
 				if selected_model == "Logistic Regression":
 
 					predictor = load_model("resources/logreg_count.pkl")
-					X_input =tweet_processor(csv_f)
+					X_input =tweet_processor(input_df)
 					prediction = predictor.predict(X_input)
 
                	    # st.write(prediction)
 				elif selected_model == "Linear SVC":
 
-					predictor = load_model("resources/logreg_count.pkl")
-					X_input =tweet_processor(csv_f)
+					predictor = load_model("resources/lsvc_tfidf.pkl")
+					X_input =tweet_processor(input_df )
 					prediction = predictor.predict(X_input)
                     # st.write(prediction)
 				elif selected_model == "Naive Bayes multinomial":
 					predictor = load_model("resources/nbm_count.pkl")
-					X_input =tweet_processor(csv_f)
-					prediction = predictor.predict(X_input)
+					X_input =tweet_processor(input_df)
+					prediction = predictor.predict(user_input)
                     # st.write(prediction)
 				elif selected_model == "Ridge classifier":
 					predictor = load_model("resources/ridge_count.pkl")
-					X_input =tweet_processor(csv_f)
+					X_input =tweet_processor(input_df)
 					prediction = predictor.predict(X_input)
 
 
