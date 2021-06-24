@@ -112,7 +112,7 @@ def main():
 	row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
 	with center_,_lock :
 
-		file_ = open('resources/imgs/Company_logo.gif', "rb")
+		file_ = open('resources/imgs/Latest_company_logo.gif', "rb")
 		contents = file_.read()
 		data_url = base64.b64encode(contents).decode("utf-8")
 		file_.close()
@@ -506,7 +506,7 @@ def main():
 
 			
  
-			st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
+			
     
 	# Building out the "Data Visualization" page
 
