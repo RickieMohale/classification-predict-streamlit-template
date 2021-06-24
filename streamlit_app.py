@@ -565,34 +565,34 @@ def main():
 		#Displaying the top hashtags on all four sentiments.
 		
 		## plottin pie chart 
-		st.write('')
-		row1_space1, row1_1, row1_space1 = st.beta_columns((.2, 1, .1))
-		with row1_1, _lock:
+		#st.write('')
+		#row1_space1, row1_1, row1_space1 = st.beta_columns((.2, 1, .1))
+		#with row1_1, _lock:
 			
-			st.subheader("Reapeted  Vs First Time Tags")
-			train_df['users'] = [''.join(re.findall(r'@\w{,}', line)) if '@' in line else np.nan for line in train_df.message]
-			counts = train_df[['message', 'users']].groupby('users', as_index=False).count().sort_values(by='message', ascending=False)
-			values = [sum(np.array(counts['message']) == 1)/len(counts['message']), sum(np.array(counts['message']) != 1)/len(counts['message'])]
-			labels = ['First Time Tags', 'Repeated Tags']
-			colors = ['lightgreen', "lightblue"]
-			fig2,ax=plt.subplots()
-			ax.pie(x=values, labels=labels, autopct='%1.1f%%', startangle=180, explode= (0.04, 0), colors=colors)
-			st.pyplot(fig2)
-			st.write("This pie chart show\'s that they are specific people or entities who are frequently tagged about global warming")
+		#	st.subheader("Repeated  Vs First Time Tags")
+		#	train_df['users'] = [''.join(re.findall(r'@\w{,}', line)) if '@' in line else np.nan for line in train_df.message]
+		#	counts = train_df[['message', 'users']].groupby('users', as_index=False).count().sort_values(by='message', ascending=False)
+		#	values = [sum(np.array(counts['message']) == 1)/len(counts['message']), sum(np.array(counts['message']) != 1)/len(counts['message'])]
+		#	labels = ['First Time Tags', 'Repeated Tags']
+		#	colors = ['lightgreen', "lightblue"]
+		#	fig2,ax=plt.subplots()
+		#	ax.pie(x=values, labels=labels, autopct='%1.1f%%', startangle=180, explode= (0.04, 0), colors=colors)
+		#	st.pyplot(fig2)
+		#	st.write("This pie chart show\'s that they are specific people or entities who are frequently tagged about global warming")
         
 		# Popular hashtags
-		row1_space1, row1_1, row1_space1 = st.beta_columns((.2, 1, .1))
-		with row1_1, _lock:
-			st.write("Top 10 people or news outlet tagged about global warming")
-		fig8 =Figure()
-		ax = fig8.subplots()
-		repeated_tags_rate = round(sum(np.array(counts['message']) > 1)*100/len(counts['message']), 1)
-		print(f"{repeated_tags_rate} percent of the data are from repeated tags")
-		sns.countplot(y="users", hue="sentiment", data=train_df, palette='PRGn',order=train_df.users.value_counts().iloc[:10].index,ax=ax) 
-		plt.ylabel('User')
-		plt.xlabel('Number of Tags')
-		plt.title('Top 10 Most Popular Tags')
-		st.pyplot(fig8)
+		#row1_space1, row1_1, row1_space1 = st.beta_columns((.2, 1, .1))
+		#with row1_1, _lock:
+		#	st.write("Top 10 people or news outlet tagged about global warming")
+		#fig8 =Figure()
+		#ax = fig8.subplots()
+		#repeated_tags_rate = round(sum(np.array(counts['message']) > 1)*100/len(counts['message']), 1)
+		#print(f"{repeated_tags_rate} percent of the data are from repeated tags")
+		#sns.countplot(y="users", hue="sentiment", data=train_df, palette='PRGn',order=train_df.users.value_counts().iloc[:10].index,ax=ax) 
+		#plt.ylabel('User')
+		#plt.xlabel('Number of Tags')
+		#plt.title('Top 10 Most Popular Tags')
+		#st.pyplot(fig8)
 
 		#
 		#corpus = re.sub("climate change", ''," ".join(tweet.strip() for tweet in train_df['clean'][working_df['sentiment'] == 'Positive']))
@@ -603,19 +603,7 @@ def main():
 		#plt.show()
 
 
-
-
-
-
-
-
         ## C
-
-        
-
-
-
-
 
 			
 
