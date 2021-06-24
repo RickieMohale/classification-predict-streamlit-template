@@ -362,10 +362,6 @@ def main():
 		# User selecting prediction model
 		#Models = ["Logistic regression","Decision tree","Random Forest Classifier","Naive Bayes","XGboost","Linear SVC"]
 		#selected_model =st.selectbox("Step 3 ) : Choose prediction model ",Models )
-
-		
-
-		
 		
 		if text_selection == 'Single tweet input':
 			st.warning('To make  accurate prediction\'s your tweet should  have at least 5 words')
@@ -373,17 +369,11 @@ def main():
             ### SINGLE TWEET CLASSIFICATION ###
 			
             # Creating a text box for user input
-			
-			
-
-			
 
 			prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
 			if st.button("Classify"):
 				## showing the user original text
 				#st.text("Input tweet is :\n{}".format(user_input))
-
-			
 
 				# Transforming user input with vectorizer
 				vect_text = tweet_cv.transform([user_input]).toarray()
@@ -571,49 +561,49 @@ def main():
 			plt.xlabel('User')
 			plt.ylabel('Total Number Of Mentions')
 			st.pyplot(fig7)
-
+		
 		#Displaying the top hashtags on all four sentiments.
-		train_df['hashtags'] = train_df['message'].str.extractall('(\#\w+.*?)').groupby(level=0)[0].apply(' '.join)
-		train_df['hashtags'] = train_df['hashtags'].replace(np.nan, '')
+		#train_df['users'] = [''.join(re.findall(r'#\w{,}', line)) if '#' in line else '' for line in train_df.message]
+		#train_df['users'] = train_df[train_df['users'] != '']
 
-		st.header('The top 10 hashtags by sentiment')
-		st.write('These four charts will display the top words hashtagged in Tweets for each one of the four sentiments under consideration.')
+		#st.header('The top 10 hashtags by sentiment')
+		#st.write('These four charts will display the top words hashtagged in Tweets for each one of the four sentiments under consideration.')
  
-		row1_space1, row1_1, row1_space1, row1_2, row1_space1 = st.beta_columns((.1, 1, .1, 1, .1))
-		with row1_1, _lock:
-			st.subheader('Top 10 positive hashtagged words')
-			fig15 =Figure()
-			ax = fig15.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Positive'],order=train_df[train_df['sentiment'] == 'Positive'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig15)
+		#row1_space1, row1_1, row1_space1, row1_2, row1_space1 = st.beta_columns((.1, 1, .1, 1, .1))
+		#with row1_1, _lock:
+		#	st.subheader('Top 10 positive hashtagged words')
+		#	fig15 =Figure()
+		#	ax = fig15.subplots()
+		#	sns.countplot(y="users", data=train_df[train_df['sentiment'] == 'Positive'],order=train_df[train_df['sentiment'] == 'Positive'].users.value_counts().iloc[:10].index,ax=ax) 
+		#	plt.ylabel('Total Number Of Tags')
+		#	st.pyplot(fig15)
 
-		with row1_2, _lock:
-			st.subheader("Top 10 negative hashtagged words")
-			fig6 =Figure()
-			ax = fig6.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Negative'],order=train_df[train_df['sentiment'] == 'Negative'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig6)
+		#with row1_2, _lock:
+		#	st.subheader("Top 10 negative hashtagged words")
+		#	fig6 =Figure()
+		#	ax = fig6.subplots()
+		#	sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Negative'],order=train_df[train_df['sentiment'] == 'Negative'].users.value_counts().iloc[:10].index,ax=ax) 
+		#	plt.ylabel('Total Number Of Tags')
+		#	st.pyplot(fig6)
 
-		row1_space1, center_, row1_space2 = st.beta_columns((.2, 1, .2, ))
-		with row1_1,_lock :
-			st.subheader( 'Top 10 news hashtagged words') 
-			fig7 =Figure()
-			ax = fig7.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'News'],order=train_df[train_df['sentiment'] == 'News'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.xlabel('User')
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig7)
+		#row1_space1, center_, row1_space2 = st.beta_columns((.2, 1, .2, ))
+		#with row1_1,_lock :
+		#	st.subheader( 'Top 10 news hashtagged words') 
+		#	fig7 =Figure()
+		#	ax = fig7.subplots()
+		#	sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'News'],order=train_df[train_df['sentiment'] == 'News'].users.value_counts().iloc[:10].index,ax=ax) 
+		#	plt.xlabel('User')
+		#	plt.ylabel('Total Number Of Tags')
+		#	st.pyplot(fig7)
 
-		with row1_2,_lock :
-			st.subheader( 'Top 10 neutral hashtagged') 
-			fig7 =Figure()
-			ax = fig7.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Neutral'],order=train_df[train_df['sentiment'] == 'Neutral'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.xlabel('User')
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig7)
+		#with row1_2,_lock :
+		#	st.subheader( 'Top 10 neutral hashtagged') 
+		#	fig7 =Figure()
+		#	ax = fig7.subplots()
+		#	sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Neutral'],order=train_df[train_df['sentiment'] == 'Neutral'].users.value_counts().iloc[:10].index,ax=ax) 
+		#	plt.xlabel('User')
+		#	plt.ylabel('Total Number Of Tags')
+		#	st.pyplot(fig7)
        
 		#
 		#corpus = re.sub("climate change", ''," ".join(tweet.strip() for tweet in train_df['clean'][working_df['sentiment'] == 'Positive']))
