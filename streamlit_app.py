@@ -128,7 +128,7 @@ def main():
 	if selection == "Climate Change":
 		st.header("Climate Changes Between 1980-2020")
 
-		st.info("""This page contains maps of climate change sentiment worldwide.""")
+		st.info("""This page contains visual insights derived from the data.""")
 	
 		st.write("""
 		Climate change has had highly variable effects in different places.
@@ -259,27 +259,27 @@ def main():
 		station_stats = read_base_file()
 		city_graphs = make_city_graphs()
 
-		#st.header('Map')
-		#st.write("""
-		#You can zoom into the map, or get a city's history by clicking on it.
-		#""")
-		#metric_for_map = st.selectbox('Climate metric for map',
-		#							options=list(metric_descs.keys()),
-		#							index=0,
-		#							format_func=lambda m: metric_descs[m])
-		#main_map = make_map(metric_for_map)
+		st.header('Map')
+		st.write("""
+		You can zoom into the map, or get a city's history by clicking on it.
+		""")
+		metric_for_map = st.selectbox('Climate metric for map',
+									options=list(metric_descs.keys()),
+									index=0,
+									format_func=lambda m: metric_descs[m])
+		main_map = make_map(metric_for_map)
 
-		#folium_static(main_map)
+		folium_static(main_map)
 
-		#st.write("""
+		st.write("""
 
-		#*Details:*
+		*Details:*
 
-		#1. Cities are color-coded based on coefficients of a linear regression model. 
-		#2. Cities are included iff they have data available for 99% of days since 1980. 
-		#""")
+		1. Cities are color-coded based on coefficients of a linear regression model. 
+		2. Cities are included iff they have data available for 99% of days since 1980. 
+		""")
 		st.markdown("""---""")
-		#st.header('Single Location Drilldown')
+		st.header('Single Location Drilldown')
 		region = st.selectbox("Region", sorted(station_stats.region.unique()), index=0)
 		city_name = st.selectbox("City", sorted(station_stats.loc[station_stats.region == region].municipality.unique()))
 		for graph_name, graph in city_graphs['standalone'][city_name].items():
