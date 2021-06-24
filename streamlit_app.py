@@ -160,10 +160,7 @@ def main():
 
 		st.header("Climate Changes Between 1980-2020")
 
-		st.info("""One of the most significant, and perhaps most misundertood risks that financial institutions 
-		face today relates to climate change. It is more important than ever that these institutions 
-		lead in understanding and responding to these risks, and seizing the opportunities to build a 
-		stronger, more resilient, and sustainable global economy through the use of artificial intelligence.""")
+		st.info("""This page contains visual .""")
 	
 		st.write("""
 		Climate change has had highly variable effects in different places.
