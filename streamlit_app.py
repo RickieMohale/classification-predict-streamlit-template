@@ -45,7 +45,9 @@ import plotly.figure_factory as ff
 import plotly.graph_objects as go
 import base64
 
-
+#audio imports
+#from gtts import gTTs
+import os
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import RendererAgg
@@ -66,34 +68,48 @@ tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl f
 train_df = pd.read_csv("resources/train.csv")
 
 # defining a data Processing and cleaning  function
-def tweet_processor(input_t):
+def tweet_processor(user_input):
+	
+	if isinstance(user_input, str):
+		x_val= user_input.lower()
+		x_val= ''.join([x for x in x_val if x not in string.punctuation])
+		#x_val =x_val.split()
+		#x_val = [word for word in x_val if word not in stopwords.words('english')]
+		x_val =[user_input]
+
+
+
+	#if isinstance(df_train, pd.DataFrame):
+
+
+
 
 
     # Removing https and trailing white spaces
-	input_t = re.sub(r'^RT ','', re.sub(r'https://t.co/\w+', '', input_t).strip()) 
+	#input_t = re.sub(r'^RT ','', re.sub(r'https://t.co/\w+', '', input_t).strip()) 
 
     # Removing puctuations
-	input_tweet = input_t.lower()
-	tweet = ''.join([x for x in input_t if x not in string.punctuation])
+	#input_tweet = input_t.lower()
+	#tweet = ''.join([x for x in input_t if x not in string.punctuation])
 
 	# Tweet tokenizing
-	tokeniser = TreebankWordTokenizer()
-	tokens = tokeniser.tokenize(data)
+	#tokeniser = TreebankWordTokenizer()
+	#tokens = tokeniser.tokenize(data)
 	
 
     # Removing stopwords
-	tokens_wt_stopwords = [word for word in tokens if word not in stopwords.words('english')]
+	#tokens_wt_stopwords = [word for word in tokens if word not in stopwords.words('english')]
    
 
     
-	pos = pos_tag(tokens_wt_stopwords)
+	#pos = pos_tag(tokens_wt_stopwords)
 
     # Lemmatization
-	lemmatizer = WordNetLemmatizer()
-	tweet = ' '.join([lemmatizer.lemmatize(word, po[0].lower()) if po[0].lower() in ['n', 'r', 'v', 'a'] else word for word, po in pos])
+	#lemmatizer = WordNetLemmatizer()
+	#tweet = ' '.join([lemmatizer.lemmatize(word, po[0].lower()) if po[0].lower() in ['n', 'r', 'v', 'a'] else word for word, po in pos])
     # tweet = ' '.join([lemmatizer.lemmatize(word, 'v') for word in tweet])
 
-	return tweet
+	return x_val
 
 # 
 # Loading prediction model using its path
@@ -205,68 +221,83 @@ def main():
 		st.write('A few years later they decided to meet up again and started working part time on this project which they call: AI Africa.')
 	
 
-		# Building out the predication page
+	# Building out the predication page
 
 	if selection == "Prediction Page":
 
-		
-		row1_space1, center_, row1_space2 = st.beta_columns((.5, 1, .2, ))
+		st.header("")
+		row1_space1, center_, row1_space2 = st.beta_columns((.3, 1, .2, ))
 		with center_,_lock :
-			st.subheader('Sentiment Prediction Page')
+			st.header('Sentiment Prediction Page')
 		
 
 		
-		st.info('This page uses machine learning models  to help you predict an individual\'s position  on global warming base on their tweet')
-		st.subheader('To make predictions, please follow the three steps below')
+		st.info('This page use machine learning models to predict an entity or  an individual\'s sentiment on global warming base on their tweet')
+		
+		row1_space1, center_, row1_space2 = st.beta_columns((.1, 1, .1, ))
+		with center_,_lock :
+			st.subheader('To make predictions, please follow the three steps below')
+	
 		
 		#selecting input text
-		text_type_selection = ['Single tweet input','multiple tweets input'] 
+		text_type_selection = ['Single tweet input','Dataframe input'] 
 		text_selection = st.selectbox('Step 1 ) : Select type of tweet input', text_type_selection)
 
+
+		
+
+		Models = ["Logistic Regression","Linear SVC","Naive Bayes multinomial","Ridge classifier"]
+		selected_model = st.radio("Step 2 ) : Choose prediction model ",Models)
 		# User selecting prediction model
 		#Models = ["Logistic regression","Decision tree","Random Forest Classifier","Naive Bayes","XGboost","Linear SVC"]
 		#selected_model =st.selectbox("Step 3 ) : Choose prediction model ",Models )
-        
 
+		
+
+		
+		
 		if text_selection == 'Single tweet input':
+			user_input = st.text_area("Step 3 ) : Enter Your Single Text Below :") 
             ### SINGLE TWEET CLASSIFICATION ###
 			
             # Creating a text box for user input
-			input_text = st.text_area("Step 2 ) : Enter Your Single Text Below :") 
-			Models = ["Logistic Regression","Linear SVC","Naive Bayes multinomial","Ridge classifier"]
+			
+			
 
-			selected_model = st.selectbox("Step 3 ) : Choose prediction model ",Models)
+			
 
 			prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
 			if st.button("Classify"):
 				## showing the user original text
-				st.text("Input tweet is :\n{}".format(input_text))
+				#st.text("Input tweet is :\n{}".format(user_input))
 
-				## Calling a function to process the text
-				#tweet_text = cleaner(input_text) 
+			
 
 				# Transforming user input with vectorizer
-				vect_text = tweet_cv.transform([input_text]).toarray()
+				vect_text = tweet_cv.transform([user_input]).toarray()
 				
 
             	#M Model_ Selection
 				if selected_model == "Logistic Regression":
 
-					predictor = load_model("resources/logreg_count2.0.pickle")
+					predictor = load_model("resources/Logistic_regression.pkl")
 					prediction = predictor.predict(vect_text)
                	    # st.write(prediction)
 				elif selected_model == "Linear SVC":
 
-					predictor = load_model("resources/svm_model.pkl")
-					prediction = predictor.predict(vect_text)
+					predictor = load_model("resources/logreg_count.pkl")
+					X_input =tweet_processor(user_input)
+					prediction = predictor.predict(X_input)
                     # st.write(prediction)
 				elif selected_model == "Naive Bayes multinomial":
 					predictor = load_model("resources/nbm_count.pkl")
-					prediction = predictor.predict(vect_text)
+					X_input =tweet_processor(user_input)
+					prediction = predictor.predict(X_input)
                     # st.write(prediction)
 				elif selected_model == "Ridge classifier":
-					predictor = load_model("resources/ridge_count2.0.pickle")
-					prediction = predictor.predict(vect_text)
+					predictor = load_model("resources/ridge_count.pkl")
+					X_input =tweet_processor(user_input)
+					prediction = predictor.predict(X_input)
 
 				# st.write(prediction)
 			    # When model has successfully run, will print prediction
@@ -274,7 +305,66 @@ def main():
 			    # more human interpretable.
 			    # st.write(prediction)
 				final_result = predict_class(prediction,prediction_labels)
+				st.success("Input tweet is :{}".format(user_input))
 				st.success("Tweet Categorized as : {}".format(final_result))
+
+				#Audio code
+
+				#language = 'en'
+				#myobj = gTTS(text=mytext, lang=language, slow=False)
+				#myobj.save("welcome.mp3")
+				#os.system("mpg321 welcome.mp3")
+
+
+				#text_en = "this article is non compliant"
+				#ta_tts = gTTS(text_en)
+				#ta_tts.save("trans.mp3")
+				#audio_file = open("trans.mp3", "rb")
+				#audio_bytes = audio_file.read()
+				#st.audio(audio_bytes, format="audio/ogg",start_time=0)
+
+				#st.audio(audio_bytes, format="audio/ogg")
+
+		if text_selection == 'Dataframe input':
+
+			csv_f =st.file_uploader("Step 3 ) : Upload csv file here", type=None, accept_multiple_files=False, key=None, help=None)
+			if csv_f ==[]:
+				st.write("You did not upload file")
+
+			prediction_labels = {'Negative':-1,'Neutral':0,'Positive':1,'News':2}
+
+			if st.button("Classify"):
+				if selected_model == "Logistic Regression":
+
+					predictor = load_model("resources/logreg_count.pkl")
+					X_input =tweet_processor(csv_f)
+					prediction = predictor.predict(X_input)
+
+               	    # st.write(prediction)
+				elif selected_model == "Linear SVC":
+
+					predictor = load_model("resources/logreg_count.pkl")
+					X_input =tweet_processor(csv_f)
+					prediction = predictor.predict(X_input)
+                    # st.write(prediction)
+				elif selected_model == "Naive Bayes multinomial":
+					predictor = load_model("resources/nbm_count.pkl")
+					X_input =tweet_processor(csv_f)
+					prediction = predictor.predict(X_input)
+                    # st.write(prediction)
+				elif selected_model == "Ridge classifier":
+					predictor = load_model("resources/ridge_count.pkl")
+					X_input =tweet_processor(csv_f)
+					prediction = predictor.predict(X_input)
+
+
+
+
+
+
+
+			
+ 
 			st.markdown("![Alt Text](https://media2.giphy.com/media/k4ZItrTKDPnSU/giphy.gif?cid=ecf05e47un87b9ktbh6obdp7kooy4ish81nxm6n9c19kmnqw&rid=giphy.gif&ct=g)")
     
 	# Building out the "Data Visualization" page
