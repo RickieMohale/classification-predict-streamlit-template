@@ -120,7 +120,7 @@ def main():
 
 
 
-	pages = ["Prediction Page","Sentiment Visualization", "Company Information, Background & Team"]
+	pages = ["Prediction Page","Sentiment Visualization","Climate Change", "Company Information, Background & Team"]
 	selection = st.sidebar.selectbox("Choose Page :", pages)
 
 	#Building the "Climate Change" page
