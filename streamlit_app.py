@@ -573,48 +573,37 @@ def main():
 			st.pyplot(fig7)
 
 		#Displaying the top hashtags on all four sentiments.
-		train_df['hashtags'] = train_df['message'].str.extractall('(\#\w+.*?)').groupby(level=0)[0].apply(' '.join)
-		train_df['hashtags'] = train_df['hashtags'].replace(np.nan, '')
-
-		st.header('The top 10 hashtags by sentiment')
-		st.write('These four charts will display the top words hashtagged in Tweets for each one of the four sentiments under consideration.')
- 
-		row1_space1, row1_1, row1_space1, row1_2, row1_space1 = st.beta_columns((.1, 1, .1, 1, .1))
+	
+		
+		## plottin pie chart 
+		st.write('')
+		row1_space1, row1_1, row1_space1 = st.beta_columns((.2, 1, .1))
 		with row1_1, _lock:
-			st.subheader('Top 10 positive hashtagged words')
-			fig15 =Figure()
-			ax = fig15.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Positive'],order=train_df[train_df['sentiment'] == 'Positive'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig15)
-
-		with row1_2, _lock:
-			st.subheader("Top 10 negative hashtagged words")
-			fig6 =Figure()
-			ax = fig6.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Negative'],order=train_df[train_df['sentiment'] == 'Negative'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig6)
-
-		row1_space1, center_, row1_space2 = st.beta_columns((.2, 1, .2, ))
-		with row1_1,_lock :
-			st.subheader( 'Top 10 news hashtagged words') 
-			fig7 =Figure()
-			ax = fig7.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'News'],order=train_df[train_df['sentiment'] == 'News'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.xlabel('User')
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig7)
-
-		with row1_2,_lock :
-			st.subheader( 'Top 10 neutral hashtagged') 
-			fig7 =Figure()
-			ax = fig7.subplots()
-			sns.countplot(y="hashtags", data=train_df[train_df['sentiment'] == 'Neutral'],order=train_df[train_df['sentiment'] == 'Neutral'].users.value_counts().iloc[:10].index,ax=ax) 
-			plt.xlabel('User')
-			plt.ylabel('Total Number Of Tags')
-			st.pyplot(fig7)
-       
+			
+			st.subheader("Reapeted  Vs First Time Tags")
+			train_df['users'] = [''.join(re.findall(r'@\w{,}', line)) if '@' in line else np.nan for line in train_df.message]
+			counts = train_df[['message', 'users']].groupby('users', as_index=False).count().sort_values(by='message', ascending=False)
+			values = [sum(np.array(counts['message']) == 1)/len(counts['message']), sum(np.array(counts['message']) != 1)/len(counts['message'])]
+			labels = ['First Time Tags', 'Repeated Tags']
+			colors = ['lightgreen', "lightblue"]
+			fig2,ax=plt.subplots()
+			ax.pie(x=values, labels=labels, autopct='%1.1f%%', startangle=180, explode= (0.04, 0), colors=colors)
+			st.pyplot(fig2)
+			st.write("This pie chart show\'s that they are specific people or entities who are frequently tagged about global warming")
+        
+		# Popular hashtags
+		row1_space1, row1_1, row1_space1 = st.beta_columns((.2, 1, .1))
+		with row1_1, _lock:
+			st.write("Top 10 people or news outlet tagged about global warming")
+		fig8 =Figure()
+		ax = fig8.subplots()
+		repeated_tags_rate = round(sum(np.array(counts['message']) > 1)*100/len(counts['message']), 1)
+		print(f"{repeated_tags_rate} percent of the data are from repeated tags")
+		sns.countplot(y="users", hue="sentiment", data=train_df, palette='PRGn',order=train_df.users.value_counts().iloc[:10].index,ax=ax) 
+		plt.ylabel('User')
+		plt.xlabel('Number of Tags')
+		plt.title('Top 10 Most Popular Tags')
+		st.pyplot(fig8)
 		#
 		#corpus = re.sub("climate change", ''," ".join(tweet.strip() for tweet in train_df['clean'][working_df['sentiment'] == 'Positive']))
 		#wordcloud = WordCloud(font_path='../input/droidsansmonottf/droidsansmono.ttf', background_color="white",width = 1920, height = 1080, colormap="viridis").generate(corpus)
