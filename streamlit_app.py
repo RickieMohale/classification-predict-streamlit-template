@@ -160,7 +160,7 @@ def main():
 
 		st.header("Climate Changes Between 1980-2020")
 
-		st.info("""This page contains visual .""")
+		st.info("""This page contains visual insights derived from the data.""")
 	
 		st.write("""
 		Climate change has had highly variable effects in different places.
