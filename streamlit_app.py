@@ -359,14 +359,14 @@ if selection == "Company Information, Background & Team":
 		col4, col5,col6 = st.beta_columns(3)
 		vesh_Pic =Image.open('resources/imgs/veshen_pic.png') 
 		col4.image(vesh_Pic,caption="Veshen Naidoo", width=150)
-		col4.write('UQ Designer')
+		col4.write('UX/UI Designer')
         
 		Phiw_Pic =Image.open('resources/imgs/phiwe_pic.png') 
 		col5.image(Phiw_Pic,caption="Phiweka Mthini", width=150)
 		col5.write('Digital marketer ')
 
 		nor_Pic =Image.open('resources/imgs/nour_pic.png') 
-		col6.image(nor_Pic,caption="Nourhan ALfalous", width=150)
+		col6.image(nor_Pic,caption="Nourhan Alfalous", width=150)
 		col6.write('Database architect')
 
 		#Third row of picture 
@@ -374,26 +374,21 @@ if selection == "Company Information, Background & Team":
 
 		st.header('How we started?')
 		st.write('African Intelligence started as a group of 6 students who met each other on a university project. The students bonded together around a love for solving problems with the help of AI. ')	
-		st.write('These students all graduated with flying colours and entered succesful carreers, but they never forgot the joys of solving real world problems.')
+		st.write('These students all graduated with flying colours and entered successful carreers, but they never forgot the joys of solving real world problems.')
 		st.write('A few years later they decided to meet up again and started working part time on this project which they call: AI Africa.')
 	
 
 	# Building out the predication page
 
 if selection == "Prediction Page":
-
-		st.header("")
+		
 		row1_space1, center_, row1_space2 = st.beta_columns((.3, 1, .2, ))
-		with center_,_lock :
-			st.header('Sentiment Prediction Page')
+		st.title('Climate Change Sentiment Tracker')
 		
-
-		
-		st.info('This page use machine learning models to predict an entity or  an individual\'s sentiment on global warming base on their tweet')
+		st.info('This page uses machine learning models to predict an entity or an individual\'s sentiment on climate change based on the tweet that they input.')
 		
 		row1_space1, center_, row1_space2 = st.beta_columns((.1, 1, .1, ))
-		with center_,_lock :
-			st.subheader('To make predictions, please follow the three steps below')
+		st.subheader('To make predictions, please follow the three steps below:')
 	
 		
 		#selecting input text
@@ -526,14 +521,10 @@ if selection == "Prediction Page":
     
 	# Building out the "Data Visualization" page
 if selection == "Data Visualization" :
-
-		st.info("General Information")
+		st.title("Data Visualization")
+		st.info("This page shows various visuals that displays the general sentiment of South-Africa towards climate change.")
 		# You can read a markdown file from supporting resources folder
-		st.markdown("Some information here")
-
-		st.subheader("Raw Twitter data and label")
-		if st.checkbox('Show raw data'): # data is hidden if box is unchecked
-			st.write(train_df [['sentiment', 'message']]) # will write the df to the page
+		#.write(train_df [['sentiment', 'message']]) # will write the df to the page
 		
 
         # Labeling the target
@@ -559,7 +550,7 @@ if selection == "Data Visualization" :
 			colors = ['lightgreen', 'lightblue', 'yellow', 'red']
 			fig1,ax=plt.subplots()
 			#plt.title('Distribution Of Sentiments ')
-			ax.pie(x=values, labels=labels, autopct='%1.1f%%', startangle=180, explode= (0.04, 0, 0, 0), colors=colors)
+			ax.pie(x=values, labels=labels, autopct='%1.1f%%', startangle=180, explode= (0.02, 0, 0, 0), colors=colors)
 			st.pyplot(fig1)
 			st.markdown("This pie chart show\'s that majority of people believe that global warming is real")
 
